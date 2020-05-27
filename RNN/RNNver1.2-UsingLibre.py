@@ -20,12 +20,13 @@ mpl.rcParams['axes.grid'] = False
 
 
 #날씨 데이터 세트(09년 ~16년사이 데이터)
+'''
 zip_path = tf.keras.utils.get_file(
     origin='https://storage.googleapis.com/tensorflow/tf-keras-datasets/jena_climate_2009_2016.csv.zip',
     fname='jena_climate_2009_2016.csv.zip',
     extract=True)
 csv_path, _ = os.path.splitext(zip_path)
-
+'''
 
 # In[3]:
 
