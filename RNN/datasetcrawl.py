@@ -121,32 +121,47 @@ def solve_images(driver):
 
 
 
+start = time()
+mainWin = driver.current_window_handle  
 
-mainWin = driver.current_window_handle
+# move the driver to the first iFrame 
+driver.switch_to_frame(driver.find_elements_by_tag_name("iframe")[0])
 
-frame = driver.find_element_by_tag_name("iframe")
-driver.switch_to.frame(frame)
-driver.find_element_by_id("recaptcha-anchor").click()
-driver.switch_to.window(mainWin)
+# *************  locate CheckBox  **************
+CheckBox = WebDriverWait(driver, 10).until(
+        EC.presence_of_element_located((By.ID ,"recaptcha-anchor"))
+        ) 
 
+# *************  click CheckBox  ***************
+wait_between(0.5, 0.7)  
+# making click on captcha CheckBox 
+CheckBox.click() 
+ 
+#***************** back to main window **************************************
+driver.switch_to_window  
+
+wait_between(2.0, 2.5) 
+
+# ************ switch to the second iframe by tag name ******************
+driver.switch_to_frame(driver.find_elements_by_tag_name("iframe")[0]) 
 # ************ switch to the second iframe by tag name ******************
 #driver.switch_to_frame(driver.find_elements_by_tag_name("iframe")[1])  
 i=1
 while i<130:
     print('\n\r{0}-th loop'.format(i))
-    driver.switch_to_window(mainWin)
-    WebDriverWait(driver,10).until(
-        EC.frame_to_be_available_and_switch_to_it((By.TAG_NAME , 'iframe'))
-        )
+    driver.switch_to_window
+    #WebDriverWait(driver,10).until(
+    #    EC.frame_to_be_available_and_switch_to_it((By.TAG_NAME , 'iframe'))
+    #    )
     wait_between(1.0, 2.0)
     if check_exists_by_xpath('//span[@aria-checked="true"]'):
         import winsound
         winsound.Beep(400,1500)
         write_stat(i, round(time()-start)-1)
         break
-    driver.switch_to_window(mainWin)
     wait_between(0.3, 1.5)
-    driver.switch_to_frame(driver.find_elements_by_tag_name("iframe")[1])
+    driver.implicitly_wait(20)
+    #driver.switch_to_frame(driver.find_elements_by_tag_name("iframe")[1])
     solve_images(driver)
     i=i+1
 
