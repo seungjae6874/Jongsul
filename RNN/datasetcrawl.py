@@ -1,5 +1,4 @@
 from selenium import webdriver
-from goodbyecaptcha.solver import Solver
 import re, csv
 from bs4 import BeautifulSoup
 import openpyxl
@@ -23,19 +22,7 @@ driver.maximize_window()
 driver.implicitly_wait(20)
 
 driver.get('https://www.libreview.com')
-#
-proxy = "127.0.0.1:1000"
-auth_details = {"username": "peanut0223@nate.com", "password": "Jongsul123"}
-args = ["--timeout 5"]
-options = {"ignoreHTTPSErrors": True, "args": args}
-client = Solver(
-    # With Proxy
-    'https://www.libreview.com', sitekey, options=options, proxy=proxy, proxy_auth=auth_details
-    # Without Proxy
-    # pageurl, sitekey, options=options
-)
 
-#
 
 
 
