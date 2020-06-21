@@ -71,15 +71,20 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
+
+            <EditText
+                android:id="@+id/protein"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="40sp"
+                android:hint="단백질g" />
+
             <EditText
                 android:id="@+id/fat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="지방g"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/foodname" />
-
+                />
 
             <EditText
                 android:id="@+id/carbo"
@@ -87,21 +92,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="40sp"
                 android:hint="탄수화물g"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <EditText
-                android:id="@+id/protein"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="40sp"
-                android:hint="단백질g"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 

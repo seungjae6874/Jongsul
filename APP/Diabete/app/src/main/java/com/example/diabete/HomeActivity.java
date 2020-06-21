@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,7 +30,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 
 public class HomeActivity extends AppCompatActivity {
@@ -97,8 +100,8 @@ public class HomeActivity extends AppCompatActivity {
                     else{//음식이름을 입력한 txt를 저장하고 나서 aws에 업로드하자.
                         //permission already granted
                         //saveExcel();
-
-                        Toast.makeText(HomeActivity.this, "엑셀 생성!",Toast.LENGTH_LONG).show();
+                        Toast.makeText(HomeActivity.this, String.valueOf(getExternalFilesDir(null)),Toast.LENGTH_LONG).show();
+                        //Toast.makeText(HomeActivity.this, "엑셀 생성!",Toast.LENGTH_LONG).show();
                     }
                 }
                 else{
@@ -168,7 +171,7 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
-    //생성
+    //초기생성
     private void createExcel(){
         Workbook workbook = new HSSFWorkbook();
 
@@ -201,6 +204,8 @@ public class HomeActivity extends AppCompatActivity {
         cell.setCellValue("Fat");
         cell = row.createCell(3);
         cell.setCellValue("Carbo");
+        cell = row.createCell(4);
+        cell.setCellValue("Time");
 
         //값입력
         row = sheet.createRow(1);
@@ -212,6 +217,11 @@ public class HomeActivity extends AppCompatActivity {
         cell.setCellValue(ffat);
         cell = row.createCell(3);
         cell.setCellValue(fcarbo);
+        cell = row.createCell(4);
+        SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        Date time = new Date();
+        String time1 = format1.format(time);
+        cell.setCellValue(time1); // 현재 날짜, 시 , 분 ,초
 
 
 
@@ -238,12 +248,15 @@ public class HomeActivity extends AppCompatActivity {
     private void saveExcel() {
         try {
             String path = String.valueOf(getExternalFilesDir(null));
-            FileInputStream fis = new FileInputStream(path + "/test.xls");
+            File test = new File(getExternalFilesDir(null),"test.xls");
+            FileInputStream fis = new FileInputStream(test);
             Workbook workbook = new HSSFWorkbook(fis);
             Sheet sheet = workbook.getSheetAt(0); // 해당 엑셀파일의 시트(Sheet) 수
+            Log.d("sheet name :", sheet.getSheetName());
             int rows = sheet.getPhysicalNumberOfRows(); // 해당 시트의 행의 개수
+            Log.d("행의 갯수  :", String.valueOf(rows));
             //값입력
-            int prow = rows+1;
+            int prow = rows;
             Row row= sheet.createRow(prow);
             Cell cell;
             cell = row.createCell(0);
@@ -254,6 +267,26 @@ public class HomeActivity extends AppCompatActivity {
             cell.setCellValue(ffat);
             cell = row.createCell(3);
             cell.setCellValue(fcarbo);
+            cell = row.createCell(4);
+            SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+            Date time = new Date();
+            String time1 = format1.format(time);
+            cell.setCellValue(time1); // 현재 날짜, 시 , 분 ,초
+
+            //값을 넣었으면 이제 진짜로 excel에 집어넣자
+            File xlsFile = new File(getExternalFilesDir(null),"test.xls");
+            try{
+                FileOutputStream os = new FileOutputStream(xlsFile);
+                workbook.write(os); // 외부 저장소에 엑셀 파일 생성
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+            Toast.makeText(getApplicationContext(),xlsFile.getAbsolutePath()+"갱신 되었습니다",Toast.LENGTH_SHORT).show();
+            //Uri path = Uri.fromFile(xlsFile);
+            //Intent shareIntent = new Intent(Intent.ACTION_SEND);
+            //shareIntent.setType("application/excel");
+            //shareIntent.putExtra(Intent.EXTRA_STREAM,path);
+            //startActivity(Intent.createChooser(shareIntent,"엑셀 내보내기"));
 
 
 
