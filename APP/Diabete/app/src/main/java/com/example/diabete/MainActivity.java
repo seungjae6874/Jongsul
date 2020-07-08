@@ -54,7 +54,9 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //지정한 URL을 웹 뷰로 접근하기
-        webView.loadUrl("https://www.foodsafetykorea.go.kr/portal/healthyfoodlife/calorieDic.do?menu_no=3072&menu_grp=MENU_NEW03");
+
+        webView.loadUrl("https://www.dietshin.com/calorie/calorie_main.asp");
+        //webView.loadUrl("https://www.foodsafetykorea.go.kr/portal/healthyfoodlife/calorieDic.do?menu_no=3072&menu_grp=MENU_NEW03");
     }
 
     public class MyJavascriptInterface {

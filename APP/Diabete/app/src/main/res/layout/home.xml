@@ -15,7 +15,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
-        android:text="Find food for \nDiabete data"
+        android:text="섭취 음식 칼로리 \nDiabete data"
         android:textAlignment="center"
         android:textColor="#171616"
         android:textSize="30sp"
@@ -53,6 +53,17 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/save" />
 
+    <TextView
+        android:id="@+id/advice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="150sp"
+        android:text="***성분의 g수의 소수점은 반올림!!(정수로)***"
+        app:layout_constraintBottom_toTopOf="@id/web"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cons1" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cons1"
         android:layout_width="wrap_content"
@@ -73,6 +84,13 @@
 
 
             <EditText
+                android:id="@+id/carbo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="40sp"
+                android:hint="탄수화물g" />
+
+            <EditText
                 android:id="@+id/protein"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -86,13 +104,6 @@
                 android:hint="지방g"
                 />
 
-            <EditText
-                android:id="@+id/carbo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="40sp"
-                android:hint="탄수화물g"
-                />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
