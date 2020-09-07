@@ -1,6 +1,8 @@
 package com.example.diabete;
 
 import android.Manifest;
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
@@ -12,7 +14,9 @@ import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -40,14 +44,32 @@ public class HomeActivity extends AppCompatActivity {
     private static final int WRITE_EXTERNAL_STORAGE_CODE = 1;
     EditText fat,carbo,protein, foodname;
     int ffat,fcarbo,fprotein,fname;
+    int y=0,m=0,d=0,h=0,mi=0;
 
-    Button search,save,create;
+
+    Button search,save,create,time, date;
     String getcarbo,getprotein,getfat,getfoodname;
     int mLastRowNum;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home);
 
+        time = findViewById(R.id.time);
+        //날짜 선택
+        time.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showTime();
+            }
+        });
+
+        date = findViewById(R.id.date);
+        date.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDate();
+            }
+        });
         search = findViewById(R.id.web);//webview로 음식 찾기
         save = findViewById(R.id.save);//엑셀에 저장하기 음식이름, 음식 고유번호
         fat = findViewById(R.id.fat);
@@ -166,6 +188,29 @@ public class HomeActivity extends AppCompatActivity {
 
 
     }
+    void showDate(){
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                y = year;
+                m = month +1;
+                d = dayOfMonth;
+            }
+        },2020,06,9);
+        datePickerDialog.setMessage("메시지");
+        datePickerDialog.show();
+    }
+    void showTime(){
+        TimePickerDialog timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                h = hourOfDay;
+                mi = minute;
+            }
+        },19,07,true);
+        timePickerDialog.setMessage("메시지");
+        timePickerDialog.show();
+    }
     private void initData(){
         mItems.add(new Item(getfoodname,fprotein,ffat,fcarbo));
 
@@ -271,8 +316,10 @@ public class HomeActivity extends AppCompatActivity {
             SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
             Date time = new Date();
             String time1 = format1.format(time);
-            cell.setCellValue(time1); // 현재 날짜, 시 , 분 ,초
-
+            //cell.setCellValue(time1); // 현재 날짜, 시 , 분 ,초
+            //선택한 날짜 임의 선택하기
+            String time2 = String.valueOf(y)+"-"+String.valueOf(m)+"-"+String.valueOf(d)+" "+String.valueOf(h)+":"+String.valueOf(mi);
+            Log.d("time :", time2);
             //값을 넣었으면 이제 진짜로 excel에 집어넣자
             File xlsFile = new File(getExternalFilesDir(null),"test.xls");
             try{
