@@ -221,13 +221,13 @@ $(document).ready(function() {
   });*/
 
   //------- Google Map  js --------//
-
+  // 구글맵스 API
   if (document.getElementById("map")) {
     google.maps.event.addDomListener(window, "load", init);
 
     function init() {
       var mapOptions = {
-        zoom: 11,
+        zoom: 14,
         center: new google.maps.LatLng(37.5994012, 126.862954), // 회계사무소 좌표
         styles: [
           {
@@ -409,7 +409,8 @@ $(document).ready(function() {
       var mapElement = document.getElementById("map");
       var map = new google.maps.Map(mapElement, mapOptions);
       var marker = new google.maps.Marker({
-        position: new google.maps.LatLng(35.190558, 129.087067),
+        // 구글 지정 핀 좌표 설정
+        position: new google.maps.LatLng(37.5994012, 126.862954),
         map: map,
         title: "Snazzy!"
       });
