@@ -266,8 +266,9 @@ public class HomeActivity extends AppCompatActivity {
         SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         Date time = new Date();
         String time1 = format1.format(time);
-        cell.setCellValue(time1); // 현재 날짜, 시 , 분 ,초
-
+        String time2 = String.valueOf(y)+"-"+String.valueOf(m)+"-"+String.valueOf(d)+" "+String.valueOf(h)+":"+String.valueOf(mi);
+        cell.setCellValue(time2); // 현재 날짜, 시 , 분 ,초
+        Log.d("time :", time2);
 
 
         File xlsFile = new File(getExternalFilesDir(null),"test.xls");
